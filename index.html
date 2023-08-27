@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <title>The Happs</title>
+</head>
+
+<body>
+    <!-- Navbar with search -->
+    <header id="header" class="sticky-top">
+
+        <nav class="navbar navbar-expand bg-primary p-0">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand fs-1 p-0 fw-bolder">The Happs</a>
+                <div class="d-none d-sm-block">
+                    <input class="searchBarInputFull rounded-2" type="text" placeholder="Whats the happs??" oninput="updateQueryTerm(this)"/>
+                    <button class="rounded-2" onclick="searchQuery('.searchBarInputFull')">Find</button>
+                </div>
+                <div class="d-flex">
+                    <button class="btn btn-primary d-block d-sm-none" data-bs-toggle="collapse"
+                        data-bs-target="#search-bar2"><img src="./img/search-icon.png" alt="" /></button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"><img
+                            src="./img/gear.png" alt="" /></button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="collapse d-sm-none p-2 bg-primary" id="search-bar2">
+            <div class="d-flex justify-content-center">
+                <input class="searchBarInputMobile rounded-2" type="text" placeholder="Whats the happs??" oninput="updateQueryTerm(this)"/>
+                <button class="rounded-2" onclick="searchQuery('.searchBarInputMobile')">Find</button>
+            </div>
+        </div>
+
+        <!-- Category Selection Track -->
+        <div id="category-track" class="container-fluid navbar navbar-expand bg-primary-subtle py-0">
+            <div class="container-fluid d-flex justify-content-start align-items-center flex-column flex-sm-row">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Recent</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Favorites</a>
+                    </li>
+                </ul>
+                <div id="category-track-border" class="fs-3 d-none d-sm-block">||</div>
+                <!-- <div id="test5"> -->
+                
+                <ul class="navbar-nav d-flex flex-row flex-wrap justify-content-center justify-content-sm-start" id="category-track-options">
+                    
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="searchCategory(0)">Business</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="searchCategory(1)">Entertainment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="searchGeneral()">General</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="searchCategory(3)">Health</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="searchCategory(4)">Science</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="searchCategory(5)">Sports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="searchCategory(6)">Technology</a>
+                    </li>
+                </ul>
+                <!-- </div> -->
+                <!-- <p class="col-11"></p> -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Modal -->
+    <div class="container article-modal">
+        <button id="article-modal-btn" class="btn btn-primary d-none" data-bs-toggle="modal"
+            data-bs-target="#article-modal">Open</button>
+        <div class="modal fade modal-lg" id="article-modal">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h3 id="article-title">
+                        </h3>
+                        <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#article-modal"></button>
+                    </div>
+                    <div class="modal-body container">
+                        <div class="row d-flex flex-row">
+                            <div class="col-12 col-lg-6">
+                                <img id="article-img" class="img-fluid h-100 object-fit-cover"
+                                    src="https://nypost.com/wp-content/uploads/sites/2/2023/08/newspress-collage-4je9ze8vn-1692722579218.jpg?quality=75&strip=all&1692708243&w=1024"
+                                    alt="">
+                            </div>
+                            <div class="col">
+                                <h4 id="article-desc"></h4>
+                                <div class="line-break"></div>
+                                <p id="article-content"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between bg-primary-subtle">
+                        <div>
+                            <span id="outlet-name" class="fst-italic"></span>
+                            <span> - </span>
+                            <span id="time-old"></span>
+                        </div>
+                        <a id="article-link"
+                            href="https://www.cnbc.com/2023/08/22/amazon-ai-scammers-blew-millions-on-lake-como-wedding-cars-ftc-claims.html"
+                            target="_blank"><button class="rounded-2">Read More...</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Settings Modal -->
+    <div class="container">
+        <div class="modal fade modal-xl" id="modal">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Settings</h1>
+                        <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex">
+                            <div class="col-8 w-100">
+                                <img class="rounded-2 w-50 h-100" src="" alt="">
+                            </div>
+                            <div class="">
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus quidem ab aliquam
+                                    consectetur ex voluptates voluptatem veritatis blanditiis inventore eligendi!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button>Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Main Content -->
+    <section id="main-top" class="m-2 lessCards">
+        <!-- Top Display Header -->
+        <div class="container mt-2 mb-2 me-auto ms-auto">
+            <div class="row align-items-center">
+                <h2 id="top-display-name" class="col-4 m-auto">POPULAR</h2>
+                <p id="search-criterea" class="col-8 m-auto">
+                    
+                </p>
+            </div>
+        </div>
+
+        <!-- Top Display Content -->
+        <div id="top-content" class="container">
+            <div class="row">
+                <!-- Four cards on the left -->
+                <div class="col-xl-9">
+                    <div class="row">
+
+                        <!-- Top left card -->
+                        <div class="col test card m-2 d-md-none duplicate" onclick="openArticleModal(this)">
+                            <div class="row p-3 flex-column flex-md-row">
+                                <div class="col-8 w-100">
+                                    <img class="rounded-2 img-fluid h-100 object-fit-cover rounded-2" src="" alt="" />
+                                </div>
+                                <div class="col-4 w-100">
+                                    <div class="card-body">
+                                        <h2 class="card-title fs-2">
+                                            
+                                        </h2>
+                                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                                class="age-of-article"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="d-none resultIndexHolder"></span>
+                        </div>
+                        <div class="col test card m-2 d-none d-md-block" onclick="openArticleModal(this)">
+                            <div class="row p-3 flex-column flex-md-row">
+                                <div id="top-card-img-cont" class="col-8">
+                                    <img class="rounded-2 img-fluid h-100 object-fit-cover rounded-2" src="" alt="" />
+                                </div>
+                                <div class="col-4 d-block">
+                                    <div class="card-body d-block">
+                                        <h2 class="card-title d-block fs-2">
+                                          
+                                        </h2>
+                                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                                class="age-of-article"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="d-none resultIndexHolder"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <!-- Bottom left card -->
+                        <div class="col card test p-3 m-2 d-none d-sm-block duplicate" onclick="openArticleModal(this)">
+                            <img class="rounded-2 card-img-top img-fluid" src="" alt="" />
+                            <div class="card-body">
+                                <h2 class="card-title fs-4">
+                                </h2>
+                                <p><span class="source-name fst-italic"></span><span> - </span><span
+                                        class="age-of-article"></span></p>
+                            </div>
+                            <span class="d-none resultIndexHolder"></span>
+                        </div>
+
+                        <!-- XS only main bottom two cards -->
+                        <div class="row flex-column d-sm-none">
+
+                            <div class="col test card m-2 " onclick="openArticleModal(this)">
+                                <div class="row p-3 h-100">
+                                    <div class="col-4 m-0 p-0">
+                                        <div class="card-body m-0 p-0">
+                                            <h2 class="card-title fs-4 h-100">
+                                                
+                                            </h2>
+                                            <p><span class="source-name fst-italic"></span><span> -
+                                                </span><span class="age-of-article"></span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <img id="main-bottom-left-card-img" class="rounded-2 img-fluid object-fit-cover"
+                                            src="" alt="" />
+                                    </div>
+                                </div>
+                                <span class="d-none resultIndexHolder"></span>
+                            </div>
+                            <div class="col test card m-2 duplicate" onclick="openArticleModal(this)">
+                                <div class="row p-3 h-100">
+                                    <div class="col-8">
+                                        <img id="main-bottom-left-card-img" class="rounded-2 img-fluid object-fit-cover"
+                                            src="" alt="" />
+                                    </div>
+                                    <div class="col-4 m-0 p-0">
+                                        <div class="card-body m-0 p-0">
+                                            <h2 class="card-title fs-4 h-100">
+                                                
+                                            </h2>
+                                            <p><span class="source-name fst-italic"></span><span> -
+                                                </span><span class="age-of-article"></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="d-none resultIndexHolder"></span>
+                            </div>
+                        </div>
+
+                        <!-- Bottom right card -->
+                        <div class="col-8 test card m-2 d-none d-md-block duplicate" onclick="openArticleModal(this)">
+                            <div class="row p-3 h-100">
+                                <div class="col-4 m-0 p-0">
+                                    <div class="card-body m-0 p-0">
+                                        <h2 class="card-title fs-4 h-100">
+                                           
+                                        </h2>
+                                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                                class="age-of-article"></span></p>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <img id="main-bottom-left-card-img" class="rounded-2 img-fluid object-fit-cover"
+                                        src="" alt="" />
+                                </div>
+                            </div>
+                            <span class="d-none resultIndexHolder"></span>
+                        </div>
+
+
+
+                        <div class="col card test p-3 m-2 d-none d-sm-block d-md-none" onclick="openArticleModal(this)">
+                            <div class="card-body">
+                                <h2 class="card-title fs-4">
+                                    Tropical Storm Harold plowing through Texas with flash
+                                    flooding - CNN
+                                </h2>
+                                <p><span class="source-name fst-italic"></span><span> - </span><span
+                                        class="age-of-article"></span></p>
+                            </div>
+                            <img class="rounded-2 card-img-bottom img-fluid" src="" alt="" />
+                            <span class="d-none resultIndexHolder"></span>
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+
+
+
+                <!-- Tall card on the right -->
+                <div class="col d-none d-xl-block card test p-3 m-2" onclick="openArticleModal(this)">
+                    <img id="test3" class="card-img-top rounded-2" src="" alt="" />
+                    <div class="card-body">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+            </div>
+    </section>
+
+
+    <!-- Break after top section -->
+    <div id="main-page-break" class="container-fluid lessCards2"></div>
+
+    <!-- Main bottom -->
+    <section id="main-bottom">
+        <div class="container">
+            <div class="row align-items-center">
+                <h2 id="top-display-name" class="col-4">MORE...</h2>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row flex-column flex-sm-row">
+                <div class="col col-sm-6 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <img class="rounded-2 card-img-top  img-fluid" src="" alt="" />
+                    <div class="card-body w-100">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-5 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <div class="card-body d-none d-sm-block">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <img class="rounded-2 card-img-bottom img-fluid" src="" alt="" />
+                    <div class="card-body d-sm-none">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-5 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <img class="rounded-2 card-img-top img-fluid" src="" alt="" />
+                    <div class="card-body">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-6 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <div class="card-body d-none d-sm-block">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <img class="rounded-2 card-img-bottom img-fluid" src="" alt="" />
+                    <div class="card-body d-sm-none">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+            </div>
+            <div class="row flex-column flex-sm-row">
+                <div class="col col-sm-6 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <img class="rounded-2 card-img-top  img-fluid" src="" alt="" />
+                    <div class="card-body w-100">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-5 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <div class="card-body d-none d-sm-block">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <img class="rounded-2 card-img-bottom img-fluid" src="" alt="" />
+                    <div class="card-body d-sm-none">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-5 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <img class="rounded-2 card-img-top img-fluid" src="" alt="" />
+                    <div class="card-body">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-6 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <div class="card-body d-none d-sm-block">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <img class="rounded-2 card-img-bottom img-fluid" src="" alt="" />
+                    <div class="card-body d-sm-none">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+            </div>
+            <div class="row flex-column flex-sm-row">
+                <div class="col col-sm-6 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <img class="rounded-2 card-img-top  img-fluid" src="" alt="" />
+                    <div class="card-body w-100">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-5 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <div class="card-body d-none d-sm-block">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <img class="rounded-2 card-img-bottom img-fluid" src="" alt="" />
+                    <div class="card-body d-sm-none">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-5 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <img class="rounded-2 card-img-top img-fluid" src="" alt="" />
+                    <div class="card-body">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-6 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <div class="card-body d-none d-sm-block">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <img class="rounded-2 card-img-bottom img-fluid" src="" alt="" />
+                    <div class="card-body d-sm-none">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+            </div>
+            <div class="row flex-column flex-sm-row">
+                <div class="col col-sm-6 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <img class="rounded-2 card-img-top  img-fluid" src="" alt="" />
+                    <div class="card-body w-100">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-5 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <div class="card-body d-none d-sm-block">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <img class="rounded-2 card-img-bottom img-fluid" src="" alt="" />
+                    <div class="card-body d-sm-none">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-5 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <img class="rounded-2 card-img-top img-fluid" src="" alt="" />
+                    <div class="card-body">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-6 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <div class="card-body d-none d-sm-block">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <img class="rounded-2 card-img-bottom img-fluid" src="" alt="" />
+                    <div class="card-body d-sm-none">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+            </div>
+            <div class="row flex-column flex-sm-row moreCards d-none">
+                <div class="col col-sm-6 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <img class="rounded-2 card-img-top  img-fluid" src="" alt="" />
+                    <div class="card-body w-100">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-5 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <div class="card-body d-none d-sm-block">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <img class="rounded-2 card-img-bottom img-fluid" src="" alt="" />
+                    <div class="card-body d-sm-none">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-5 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <img class="rounded-2 card-img-top img-fluid" src="" alt="" />
+                    <div class="card-body">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+                <div class="col col-sm-6 col-lg card test p-3 m-2" onclick="openArticleModal(this)">
+                    <div class="card-body d-none d-sm-block">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <img class="rounded-2 card-img-bottom img-fluid" src="" alt="" />
+                    <div class="card-body d-sm-none">
+                        <h2 class="card-title fs-4">
+                            
+                        </h2>
+                        <p><span class="source-name fst-italic"></span><span> - </span><span
+                                class="age-of-article"></span></p>
+                    </div>
+                    <span class="d-none resultIndexHolder"></span>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation" id="pagination">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <button class="page-link" onclick="nextPrevBtns(true)">Previous</button>
+            </li>
+            
+            <li class="page-item pageNum active"><a class="page-link" href="#" onclick="changePage(this, 1)">1</a></li>
+            <li class="page-item pageNum"><a class="page-link" href="#" onclick="changePage(this, 2)">2</a></li>
+            <li class="page-item pageNum"><a class="page-link" href="#" onclick="changePage(this, 3)">3</a></li>
+            <li class="page-item pageNum"><a class="page-link" href="#" onclick="changePage(this, 4)">4</a></li>
+            <li class="page-item pageNum"><a class="page-link" href="#" onclick="changePage(this, 5)">5</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" onclick="nextPrevBtns(false)">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Ticker at bottom of page -->
+    <div class="news-container">
+        <div class="title">
+            Breaking News
+        </div>
+        <ul id="news-ticker">
+           
+        </ul>
+    </div>
+    
+    <!-- <p class="m-auto">Tropical Storm Harold plowing through Texas with flash
+        flooding - CNN</p>  -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/script.js"></script>
+    <!-- <script src="./js/api.js"></script> -->
+</body>
+
+</html>

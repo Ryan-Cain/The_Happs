@@ -1,0 +1,159 @@
+/* body {
+    margin-top: 40px; 
+  }
+  
+  body::before {
+    content: "XS";
+    color: red;
+    font-size: 2rem;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+  
+  .box {
+    background-color: lightblue;
+    border: 1px solid blue;
+    min-height: 50px;
+    font-size: 2rem;
+  }
+  
+  @media (min-width: 576px) {
+    body::before {
+      content: "SM";
+    }
+  }
+  
+  @media (min-width: 768px) {
+    body::before {
+      content: "MD";
+    }
+  }
+  
+  @media (min-width: 992px) {
+    body::before {
+      content: "LG";
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    body::before {
+      content: "XL";
+    }
+  }
+  
+  @media (min-width: 1400px) {
+    body::before {
+      content: "XXL";
+    }
+  } */
+
+
+/* @font-face {
+    font-family: "cascadia";
+    src: url(./assets/font/CascadiaCode.ttf);
+}
+
+* {
+    font-family: "cascadia", bold;
+} */
+
+/* body {
+  background-image: linear-gradient(rgba(20, 138, 217, 0.518), rgb(211, 216, 218));
+} */
+
+img {
+    height: 45px;
+    max-width: 45px;
+}
+
+.test, .test1 {
+    background-color: rgba(183, 176, 176, 0.645);
+    border: 2px solid black;
+}
+
+
+
+#test3 {
+    height: 75%;
+    object-fit: cover;
+    max-width: 100%;
+}
+
+#main-page-break {
+    width: 95vw;
+    border: 3px solid black;
+    margin: 20px auto;
+}
+.line-break {
+  width: 95%;
+  border: 1px solid black;
+  margin: 20px auto;
+}
+
+#pagination {
+    margin: 25px auto 75px auto;
+}
+
+#main-bottom-left-card-img {
+    height: 100%;
+}
+#main-bottom-left-card-text {
+    height: 100%;
+}
+
+.card {
+  cursor: pointer;
+  font-family: 'Roboto Slab', serif;
+}
+.article-modal {
+  font-family: 'Roboto Slab', serif;
+}
+
+.news-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: lightskyblue;
+}
+
+.news-container .title {
+  position: absolute;
+  background-color: red;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  color: white;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.news-container ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  animation: scroll 120s infinite linear;
+  align-items: center;
+  
+}
+
+.news-container ul li {
+  white-space: nowrap;
+  padding: 10px 35px;
+  margin: auto;
+}
+.news-container ul li a {
+  color: blue;
+  text-decoration: none;
+  margin: auto;
+}
+.news-container ul p{
+  height: 100%;
+  /* border-left: 3px solid black; */
+  margin: auto;
+}
+
+
